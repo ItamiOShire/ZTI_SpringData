@@ -1,10 +1,7 @@
 package zit.springdata.zti_springdata.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Page;
 
 import zit.springdata.zti_springdata.service.PagingAndSortingService;
@@ -27,14 +24,23 @@ public class PASController {
         return pagingAndSortingService.getPageProduct(items, pages);
     }
 
-    @GetMapping("/sessions/cardId/1")
+    @GetMapping("/session/cardId/{cardId}")
     public Page<ShoppingSession> getShoppingSessionsByCardId(
-            @RequestParam Integer cardId,
+            @PathVariable Integer cardId,
             @RequestParam int pageSize,
             @RequestParam int pageNumber,
             @RequestParam String[] sortBy) {
 
         return pagingAndSortingService.getPageSessionsSorted(cardId, pageSize, pageNumber, sortBy);
 
+    }
+
+    @GetMapping("/client/all")
+    public Page<Client> getClientPage(
+            @RequestParam String lastName,
+            @RequestParam int pageSize,
+            @RequestParam int pageNumber,
+            @RequestParam String[] sortBy) {
+        return pagingAndSortingService.getPageClientsSorted(lastName, pageSize, pageNumber, sortBy);
     }
 }

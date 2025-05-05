@@ -11,20 +11,36 @@ import java.util.List;
 import java.util.Optional;
 
 public interface JpaClientRepository extends JpaRepository<Client,Integer> {
-    // Filtrowanie po nazwisku
+
+    ///
+    /// SELECT *
+    /// FROM client
+    /// WHERE LOWER(last_name) LIKE LOWER('%kowalski%');
+    ///
     List<Client> findByLastNameContainingIgnoreCase(String lastName);
 
-    // Szukanie po emailu (unikalnym)
+    ///
+    /// SELECT *
+    /// FROM client
+    /// WHERE email = 'jan.kowalski@kaufland.pl'
+    /// LIMIT 1;
+    ///
     Optional<Client> findByEmail(String email);
 
-    // Paginacja + sortowanie + filtr
+    ///
+    /// SELECT *
+    /// FROM client
+    /// WHERE LOWER(first_name) LIKE LOWER('%jan%')
+    /// ORDER BY last_name ASC
+    /// LIMIT 5 OFFSET 0;
+    ///
     Page<Client> findByFirstNameContainingIgnoreCase(String name, Pageable pageable);
 
-    // Custom query (JPQL)
+
     @Query("SELECT c FROM Client c WHERE c.card IS NOT NULL")
     List<Client> findClientsWithCard();
 
-    // Natywne SQL
+
     @Query(value = "SELECT * FROM Client WHERE email LIKE %:domain", nativeQuery = true)
     List<Client> findByEmailDomain(@Param("domain") String domain);
 }

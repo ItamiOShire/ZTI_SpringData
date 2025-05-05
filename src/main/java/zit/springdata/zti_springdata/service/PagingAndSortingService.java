@@ -7,9 +7,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import zit.springdata.zti_springdata.entity.Client;
+import zit.springdata.zti_springdata.entity.KauflandCard;
 import zit.springdata.zti_springdata.entity.Product;
 import zit.springdata.zti_springdata.entity.ShoppingSession;
 import zit.springdata.zti_springdata.repository.PagingAndSortingRepository.*;
+
+import javax.smartcardio.Card;
 
 @Service
 public class PagingAndSortingService {
@@ -39,7 +42,8 @@ public class PagingAndSortingService {
 
     public Page<ShoppingSession> getPageSessionsSorted(Integer id,int pageSize, int pageNumber, String[] sortBy) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize,  Sort.by(Sort.Direction.fromString(sortBy[1]),sortBy[0]));
-        return PASShoppingSessionRepository.findByCard(id, pageable);
+        KauflandCard card = PASKauflandCardRepository.findKauflandCardById(id);
+        return PASShoppingSessionRepository.findByCard(card, pageable);
     }
 
     public Page<Client> getPageClientsSorted(String lastName,int pageSize, int pageNumber, String[] sortBy) {
