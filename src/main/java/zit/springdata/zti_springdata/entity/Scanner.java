@@ -1,5 +1,6 @@
 package zit.springdata.zti_springdata.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Nationalized;
 
@@ -18,6 +19,7 @@ public class Scanner {
     private String serialNumber;
 
     @OneToMany(mappedBy = "scanner")
+    @JsonManagedReference
     private Set<ShoppingSession> shoppingSessions = new LinkedHashSet<>();
 
     public Integer getId() {

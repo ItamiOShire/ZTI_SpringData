@@ -1,5 +1,7 @@
 package zit.springdata.zti_springdata.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Nationalized;
 
@@ -19,9 +21,11 @@ public class KauflandCard {
     private String code;
 
     @OneToOne(mappedBy = "card")
+    @JsonBackReference
     private Client client;
 
     @OneToMany(mappedBy = "card")
+    @JsonBackReference
     private Set<ShoppingSession> shoppingSessions = new LinkedHashSet<>();
 
     public Integer getId() {

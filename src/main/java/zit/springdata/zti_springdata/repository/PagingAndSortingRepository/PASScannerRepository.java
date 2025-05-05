@@ -1,7 +1,7 @@
 package zit.springdata.zti_springdata.repository.PagingAndSortingRepository;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
-import zit.springdata.zti_springdata.entity.Client;
+import zit.springdata.zti_springdata.entity.Scanner;
 
-public interface ClientRepository extends PagingAndSortingRepository<Client,Integer> {
+public interface PASScannerRepository extends PagingAndSortingRepository<Scanner,Integer> {
 }

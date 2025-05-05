@@ -1,21 +1,25 @@
 package zit.springdata.zti_springdata.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "CartItems")
+@Table(name = "Cart_Items")
 public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "shopping_session_ID", nullable = false)
+    @JsonBackReference
     private ShoppingSession shoppingSession;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "product_ID", nullable = false)
+    @JsonManagedReference
     private Product product;
 
     @Column(name = "quantity", nullable = false)

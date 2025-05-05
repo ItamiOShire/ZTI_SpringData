@@ -1,5 +1,6 @@
 package zit.springdata.zti_springdata.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Nationalized;
 
@@ -10,8 +11,9 @@ public class Client {
     @Column(name = "ID", nullable = false)
     private Integer id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "card_ID")
+    @JsonManagedReference
     private KauflandCard card;
 
     @Nationalized
